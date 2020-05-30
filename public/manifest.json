@@ -1,0 +1,12 @@
+{
+	"name": "Svelte + Blockstack template",
+	"start_url": "http://localhost:5000",
+	"description": "A simple template that combines Svelte and Blockstack.",
+	"icons": [
+		{
+			"src": "http://localhost:5000/public/logo.svg",
+			"sizes": "512x512",
+			"type": "image/svg+xml"
+		}
+	]
+}
