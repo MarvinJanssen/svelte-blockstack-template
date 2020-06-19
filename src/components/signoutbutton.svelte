@@ -1,9 +1,9 @@
 <script>
-	import blockstack from '../blockstack';
+	import session from '../usersession';
 
 	function sign_out()
 		{
-		blockstack.signUserOut(document.location.href);
+		session.signUserOut(document.location.href);
 		}
 </script>
 <style>

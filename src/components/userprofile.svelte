@@ -1,6 +1,5 @@
 <script>
 	export var data;
-	console.log(data);
 
 	function show()
 		{
@@ -47,7 +46,7 @@
 	</div>
 	<div>
 		<div class="username">
-			{data.username}
+			{data.username || '?'}
 		</div>
 		<div class="address">
 			{data.identityAddress}	

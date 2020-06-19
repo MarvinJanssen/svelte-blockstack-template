@@ -8,14 +8,23 @@
 
 	import UserProfile from './components/userprofile.svelte';
 	
+	import session from './usersession';
+
+	var signin_pending = session.isSignInPending();
+
 	var user_data = null;
-	if (blockstack.isUserSignedIn())
-		user_data = blockstack.loadUserData();
-	else if (blockstack.isSignInPending())
-		blockstack.handlePendingSignIn().then(function(data)
+	if (session.isUserSignedIn())
+		user_data = session.loadUserData();
+	else if (signin_pending)
+		{
+		session.handlePendingSignIn().then(function(data)
 			{
+			signin_pending = false;
 			user_data = data;
 			});
+		// remove the authResponse GET parameter from the URL without refreshing the page:
+		history && history.replaceState(null,null,window.location.href.split('?')[0]);
+		}
 </script>
 <style>
 	main{
@@ -41,9 +50,13 @@
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 	<p>Read the <a href="https://blockstack.github.io/blockstack.js/">Blockstack.js documentation</a>.</p>
 </main>
-{#if !user_data}
+{#if !signin_pending && !user_data}
 	<SignInButton />
 {:else}
-	<UserProfile data={user_data} />
-	<SignOutButton />
+	{#if signin_pending}
+		<p>Loading...</p>
+	{:else}
+		<UserProfile data={user_data} />
+		<SignOutButton />
+	{/if}
 {/if}

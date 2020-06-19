@@ -1,9 +1,9 @@
 <script>
-	import blockstack from '../blockstack';
+	import session from '../usersession';
 
 	function sign_in()
 		{
-		blockstack.redirectToSignIn();
+		session.redirectToSignIn();
 		}
 </script>
 <style>
